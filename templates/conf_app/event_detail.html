@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2> {{ event.title }} </h2>
+    <p> {{ event.description }}</p>
+    <p> {{ event.start_time }}</p>
+    <p> {{ event.end_time }}</p>
+
+    Sponsors:
+    <ul>
+        {% for sponsor in event.sponsors.all %}
+            <li> {{ sponsor.name }} </li>
+            <p><img src="/media/{{ sponsor.logo }}"></p>
+        {% endfor %}
+    </ul>
+    Participants:
+    <ul>
+        {% for user in event.participant_set.all %}
+            {% if user.role == "SP"%}
+            Speaker
+            {% else %}
+            Listener
+            {% endif %}
+            <li> {{ user.username }} </li>
+            <p><img src="/media/{{ user.userpic }}"></p>
+        {% endfor %}
+    </ul>
+{% endblock %}
