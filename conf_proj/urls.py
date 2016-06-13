@@ -16,14 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from registration.backends.hmac.views import RegistrationView
-
-from accounts.forms import CustomUserForm
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^conf/', include('conf_app.urls')),
     url(r'^accounts/', include('accounts.urls')),
-    url(r'^blog/', include('blog.urls')),
-    url(r'^chat/', include('chat.urls')),
+    url(r'^conf/', include('conf_app.urls', namespace='conf')),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^chat/', include('chat.urls', namespace='chat')),
 ]

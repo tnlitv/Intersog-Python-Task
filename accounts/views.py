@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.views.generic.detail import DetailView
+from conf_app.models import CustomUser
 
-from django.http import HttpResponse
 
+class CustomUserDetailView(DetailView):
+    model = CustomUser
+    context_object_name = 'user'
+    template_name = 'accounts/profile_detail.html'
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the account index.")
+    def get_object(self, **kwargs):
+        return self.request.user

@@ -4,9 +4,14 @@
     <h2>Events</h2>
     <ul>
         {% for event in events %}
-            <li>{{ event.title | upper }}
+            <li><a href="{% url "conf:event_id" event.id %}/"> {{ event.title | upper }} </a>
                 |
-                {{ event.start_time }} - {{ event.end_time }}</li>
+                {{ event.start_time }} - {{ event.end_time }}
+                -
+                <a href="{% url "conf:edit" event.id %}/"> Edit </a>
+                -
+                <a href="{% url "conf:delete" event.id %}/"> Delete </a>
+            </li>
             <p> {{ event.description | truncatechars:255 }}</p>
         {% endfor %}
     </ul>
@@ -15,13 +20,13 @@
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="/blog?page={{ page_obj.previous_page_number }}">previous</a>
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
                 {% endif %}
                 <span class="page-current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="/blog?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
                 {% endif %}
             </span>
         </div>

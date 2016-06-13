@@ -38,14 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'swampdragon',
+    'swampdragon_auth',
+    'swampdragon_notifications',
     'registration',
     'conf_app',
     'chat',
-    'blog'
+    'blog',
 ]
 
 MIDDLEWARE_CLASSES = [
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -143,3 +145,26 @@ EMAIL_HOST_USER = 'frrresshh@gmail.com'
 EMAIL_HOST_PASSWORD = 'nicola13'
 EMAIL_PORT = 587
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+SWAMP_DRAGON_CONNECTION = ('swampdragon_notifications.notification_connection.Connection', '/data')
+DRAGON_URL = 'http://localhost:9999/'
+
+SWAMP_DRAGON_NOTIFICATION_BACKENDS = [
+    ('realtime', 'swampdragon_notifications.backends.realtime_notifications.RealtimeNotification'),
+    ('email', 'swampdragon_notifications.backends.email_notifications.EmailNotification'),
+]
+
+SWAMP_DRAGON_NOTIFICATIONS = {
+    'foo': {
+        'processor': 'app.subject_renderer.foo_to_dict',
+        'template': 'standard_email',  # Only used by email backend,
+        'subject': 'You have a new notification',  # Only used by email backend
+        'title': 'Notification',
+        'icon': 'http://placekitten.com/g/64/64'
+    }
+}
+
+
+SWAMP_DRAGON_HEARTBEAT_ENABLED = True
+SWAMP_DRAGON_HEARTBEAT_FREQUENCY = 1000 * 60 * 5  # Five minutes

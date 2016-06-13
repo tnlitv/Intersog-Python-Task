@@ -1,11 +1,28 @@
+{% load static swampdragon_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Conference App</title>
-    {% block scripts %} {% endblock %}
 </head>
 <body>
+{% if user.is_authenticated %}
+<!-- Swamp dragon -->
+{% swampdragon_settings %}
+<script type="text/javascript" src="{% static 'swampdragon/js/dist/swampdragon.min.js' %}"></script>
+
+<!-- Swamp dragon notifications -->
+<script type="text/javascript" src="{% static 'swampdragon/js/dist/swampdragon-notifications.js' %}"></script>
+
+<!-- App -->
+<script type="text/javascript" src="{% static 'notifications.js' %}"></script>
+{% endif %}
+
+<div>Notifications:</div>
+<ol id="notifications">
+
+</ol>
+
 {% block content %}
 
 {% endblock %}

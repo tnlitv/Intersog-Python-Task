@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static swampdragon_tags %}
+
+{% block content %}
+<!-- AngularJS -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+
+{% swampdragon_settings %}
+<script type="text/javascript" src="{% static 'swampdragon/js/dist/swampdragon.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'swampdragon/js/dist/datamapper.js' %}"></script>
+<script type="text/javascript" src="{% static 'swampdragon/js/angular/services.js' %} "></script>
+
+<!-- Chat app -->
+<script type="text/javascript" src="{% static  'app.js' %} "></script>
+<script type="text/javascript" src="{% static  'controllers.js' %} "></script>
+
+
+<div ng-app="ChatApp" ng-init="chatid = {{ pk }}">
+    {% verbatim %}
+    <div ng-controller="ChatCtrl">
+        <h3>{{ chat.title }}</h3>
+        Users
+        <ul>
+            <li ng-repeat="user in chat.users">
+                {{ user.username }}
+            </li>
+        </ul>
+        <form method="post" class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="message" id="message">
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" id="send-message-button"> Send</button>
+            </div>
+
+            <div>
+                <span id="error-name"></span>
+            </div>
+            <div>
+                <span id="error-message"></span>
+            </div>
+        </form>
+        Messages
+        <ul id="messages">
+            <li ng-repeat="message in messages">
+                {{ message.author.username }} :
+                {{ message.text }}
+            </li>
+        </ul>
+    </div>
+    {% endverbatim %}
+</div>
+
+{% endblock %}

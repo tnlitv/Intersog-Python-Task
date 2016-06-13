@@ -9,20 +9,42 @@
     Sponsors:
     <ul>
         {% for sponsor in event.sponsors.all %}
-            <li> {{ sponsor.name }} </li>
-            <p><img src="/media/{{ sponsor.logo }}"></p>
+            <li> {{ sponsor.username }} </li>
+            <p><img height="200" src="/media/{{ sponsor.userpic }} "></p>
         {% endfor %}
     </ul>
-    Participants:
+    Speakers:
     <ul>
-        {% for user in event.participant_set.all %}
-            {% if user.role == "SP"%}
-            Speaker
-            {% else %}
-            Listener
+        {% for member in event.participant_set.all %}
+            {% if member.role == "SP" %}
+
+                <li> {{ member.user.username }} </li>
+                <p>
+                    {% if member.user.userpic %}
+                        <img src="/media/{{ member.user.userpic }}">
+                    {% else %}
+                        <img src="/static/imgs/anon_user.png">
+                    {% endif %}
+                </p>
+
             {% endif %}
-            <li> {{ user.username }} </li>
-            <p><img src="/media/{{ user.userpic }}"></p>
+        {% endfor %}
+    </ul>
+    Listeners:
+    <ul>
+        {% for participant in event.participant_set.all %}
+            {% if participant.role == "LS" %}
+
+                <li> {{ participant.user.username }} </li>
+                <p>
+                    {% if participant.user.userpic %}
+                        <img src="/media/{{ participant.user.userpic }}">
+                    {% else %}
+                        <img src="/static/imgs/anon_user.png">
+                    {% endif %}
+                </p>
+
+            {% endif %}
         {% endfor %}
     </ul>
 {% endblock %}

@@ -3,8 +3,8 @@
 {% block content %}
     <h2> {{ post.title }} </h2>
     <p> {{ post.text }}</p>
-    <p> {{ post.created_at }}</p>
-    <p> {{ post.author.username }}</p>
+    <p> Created at: {{ post.created_at }}</p>
+    <p> Author: {{ post.author.username }}</p>
 
     <ul>
     {% for comment in post.comment_set.all %}

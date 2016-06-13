@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from registration.backends.hmac.views import RegistrationView
 
 from .forms import CustomUserForm
-from . import views
+from .views import CustomUserDetailView
 
 urlpatterns = [
     url(r'register/$',
@@ -11,5 +11,7 @@ urlpatterns = [
         ),
         name='registration_register',
         ),
+    url(r'profile/$', CustomUserDetailView.as_view(), name='profile'),
     url(r'', include('registration.backends.hmac.urls')),
+    url(r'', include('django.contrib.auth.urls')),
 ]
